@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a9539512-0f59-459b-ab07-53ac629d0967" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AAL_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AAPL_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AAP_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ABBV_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ABC_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ABT_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ACN_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ADBE_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ADI_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ADM_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ADP_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ADSK_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ADS_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AEE_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AEP_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AES_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AET_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AFL_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AGN_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AIG_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AIV_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AIZ_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AJG_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AKAM_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ALB_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ALGN_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ALK_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ALLE_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ALL_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ALXN_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AMAT_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AMD_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AME_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AMGN_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AMG_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AMP_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AMT_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AMZN_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ANDV_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ANSS_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ANTM_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AON_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AOS_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/APA_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/APC_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/APD_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/APH_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/APTV_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ARE_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ARNC_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/ATVI_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AVB_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AVGO_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AVY_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AWK_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AXP_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AYI_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/AZO_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/A_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BAC_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BAX_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BA_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BBT_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BBY_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BDX_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BEN_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BF.B_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BHF_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BHGE_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BIIB_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BK_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BLK_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BLL_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BMY_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BRK.B_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BSX_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BWA_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/BXP_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CAG_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CAH_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CAT_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CA_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CBG_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CBOE_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CBS_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CB_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CCI_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CCL_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CDNS_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CELG_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CERN_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CFG_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CF_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CHD_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CHK_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CHRW_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CHTR_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CINF_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CI_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/CLX_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/individual_stocks_5yr/colomboStock.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/sb-admin-2.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/sb-admin-2.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1iMJ1FMbF4favMmUhClNoZDjc78" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="ignore_missing_gitignore" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a9539512-0f59-459b-ab07-53ac629d0967" name="Default Changelist" comment="" />
+      <created>1601711326756</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1601711326756</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="413" y="143" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601917848217">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="413" y="143" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1601917848217" />
+    <state x="1942" y="86" key="FileChooserDialogImpl" timestamp="1601889730210">
+      <screen x="1366" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1942" y="86" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1601889730210" />
+    <state x="410" y="60" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1601711576416" />
+    <state x="2166" y="413" key="VCS.ChangelistChooser" timestamp="1601881776072">
+      <screen x="1366" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2166" y="413" key="VCS.ChangelistChooser/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1601881776072" />
+    <state x="462" y="259" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1601968267817">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="462" y="259" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1601968267817" />
+    <state x="1905" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1601888840081">
+      <screen x="1366" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1905" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1601888840081" />
+  </component>
+</project>

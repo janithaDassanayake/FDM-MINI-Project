@@ -28,13 +28,13 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" style="background:#191919">
 
 <!-- Page Wrapper -->
-<div id="wrapper">
+<div id="wrapper" style="background:#191919">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" style="background:#000000" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
@@ -58,9 +58,9 @@
                 Stock File
             </div>
 
-            <select class="selectpicker " data-live-search="true" name="stockfile" >
-                {% for i in range(0, stocklen) %}
-                <option>{{ stock_files[i] }}</option>
+            <select class="selectpicker " data-live-search="true" name="stock_file_name" >
+                {% for i in range(0, stock_len) %}
+                <option>{{ sl_stock_files[i] }}</option>
                 {% endfor %}
 
 
@@ -71,35 +71,33 @@
 
             <!-- Heading -->
             <div class="sidebar-brand-text mx-3" style="color:white;">
-                ML Algorithm
+                ML Prediction Model
             </div>
-            <select class="selectpicker" multiple data-live-search="true" name="mlalgos">
-                <option value="SVR_linear">SVR (Linear)</option>
-                <option value="SVR_rbf">SVR (RBF)</option>
+            <select class="selectpicker" multiple data-live-search="true" name="Prediction_Model">
+<!--                <option value="SVR_linear">SVR (Linear)</option>-->
+
                 <option value="linear_regression">Linear Regression</option>
+                <option value="SVR_rbf">SVM (RBF)</option>
                 <option value="random_forests">Random Forests</option>
                 <option value="KNN">K Nearest Neighbors (KNN)</option>
                 <option value="DT">Decision Trees</option>
-                <option value="elastic_net">Elastic Net</option>
-                <option value="LSTM_model">LSTM model</option>
+<!--                <option value="elastic_net">Elastic Net</option>-->
+<!--                <option value="LSTM_model">LSTM model</option>-->
 
             </select>
             <br><br>
             <input type="submit" value="Submit" class="btn btn-success" style="color:white;">
         </form>
 
-
-
-
     </ul>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content-wrapper" class="d-flex flex-column"style="background:#191919">
         <!-- Main Content -->
-        <div id="content">
+        <div id="content"style="background:#191919">
             <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow"style="background:#000000">
                 <!-- Sidebar Toggle (Topbar) -->
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
@@ -113,7 +111,7 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            {% if show_results == "false" %}
+            {% if show_results_output == "false" %}
             <p style="text-align:center;margin-top:15%">
                     <i class="fas fa-cogs fa-5x" style="color:#1c5d3c;"></i>
                     <br/>
@@ -131,7 +129,7 @@
                         <div class="col-xl-12 col-lg-7">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between"style="background:#000000">
                                     <h6 class="m-0 font-weight-bold text-primary">Actual Vs Predicted stock opening price</h6>
 
                                 </div>
@@ -151,11 +149,11 @@
                             <!-- Page Heading -->
                             <h1 class="h3 mb-2 text-gray-800">Prediction Results of SL Stock Opening Price</h1>
                             <p class="mb-4">The following table shows the original opening value of stock along with its
-                                predicted opening value on <br>Date: {{ prediction_date }}.</p>
+                                predicted opening value on <br>Date: {{ prediction_result_date }}.</p>
 
                             <!-- DataTales Example -->
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3">
+                                <div class="card-header py-3" style="background:#000000">
                                     <h6 class="m-0 font-weight-bold text-primary">Predictions</h6>
                                 </div>
                                 <div class="card-body">
@@ -168,10 +166,10 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {% for i in range(0, len2) %}
+                                            {% for i in range(0, len_2) %}
                                             <tr>
-                                                <td>{{ all_prediction_data[i][0] }}</td>
-                                                <td>{{ all_prediction_data[i][1] }}</td>
+                                                <td>{{ all_prediction_stock_data[i][0] }}</td>
+                                                <td>{{ all_prediction_stock_data[i][1] }}</td>
                                             </tr>
                                             {% endfor %}
                                             </tbody>
@@ -190,7 +188,7 @@
 
                             <!-- DataTales Example -->
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3">
+                                <div class="card-header py-3"style="background:#000000">
                                     <h6 class="m-0 font-weight-bold text-primary">Test Evaluation</h6>
                                 </div>
                                 <div class="card-body">
@@ -203,7 +201,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {% for i in range(0, len2 - 1) %}
+                                            {% for i in range(0, len_2 - 1) %}
                                             <tr>
                                                 <td>{{ all_test_evaluations[i][0] }}</td>
                                                 <td>{{ all_test_evaluations[i][1] }}</td>
@@ -229,7 +227,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+            <footer class="sticky-footer" style="background:#000000" >
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy; SLIIT Stock Price Prediction - 2020</span>
@@ -299,21 +297,21 @@ var myLineChart = new Chart(ctx, {
     labels: alldates,
     datasets: [{% for i in range(0, len) %}
               {
-              label: {{ all_data[i][2] | tojson }},
+              label: {{ all_stock_data[i][2] | tojson }},
               lineTension: 0.3,
 
-              backgroundColor: "rgba(78, 115, 223, 0.05)",
-              borderColor: {{ all_data[i][3] | tojson}},
+              backgroundColor: "rgba(0, 0, 0, 0.05)",
+              borderColor: {{ all_stock_data[i][3] | tojson}},
               pointRadius: 3,
-              pointBackgroundColor: {{ all_data[i][3] | tojson}},
-              pointBorderColor: {{ all_data[i][3] | tojson}},
+              pointBackgroundColor: {{ all_stock_data[i][3] | tojson}},
+              pointBorderColor: {{ all_stock_data[i][3] | tojson}},
               pointHoverRadius: 3,
-              pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+              pointHoverBackgroundColor: "rgba(0, 0, 0, 1)",
               pointHoverBorderColor: "rgba(78, 115, 223, 1)",
               pointHitRadius: 10,
               pointBorderWidth: 2,
-              showLine: {{ all_data[i][1] | safe}},
-              data: [{% for item in all_data[i][0] %}
+              showLine: {{ all_stock_data[i][1] | safe}},
+              data: [{% for item in all_stock_data[i][0] %}
                         {{item}},
                       {% endfor %}],
               },
@@ -366,10 +364,10 @@ var myLineChart = new Chart(ctx, {
       display: true
     },
     tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
+      backgroundColor: "rgb(0, 0, 0)",
+      bodyFontColor: "#f0f8ff",
       titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
+      titleFontColor: '#fff8dc',
       titleFontSize: 14,
       borderColor: '#dddfeb',
       borderWidth: 1,

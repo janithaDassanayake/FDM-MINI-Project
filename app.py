@@ -1,91 +1,124 @@
-# Importing flask module in the project is mandatory
-# An object of Flask class is our WSGI application.
 from flask import Flask, render_template, request, send_from_directory
 import utils
-import train_models as tm
-import os
-import pandas as pd
+import train_models as train_model
 
-# Flask constructor takes the name of
-# current module (__name__) as argument.
 app = Flask(__name__)
-#
-# @app.route('/favicon.ico')
-# def favicon():
-#     return send_from_directory(os.path.join(app.root_path, 'static'),
-#                           'favicon.ico',mimetype='image/vnd.microsoft.icon')
 
 
-def perform_training(stock_name, df, models_list):
-    all_colors = {'SVR_linear': '#FF9EDD',
-                  'SVR_poly': '#FFFD7F',
-                  'SVR_rbf': '#FFA646',
-                  'linear_regression': '#CC2A1E',
-                  'random_forests': '#8F0099',
-                  'KNN': '#CCAB43',
-                  'elastic_net': '#CFAC43',
-                  'DT': '#85CC43',
-                  'LSTM_model': '#CC7674'}
+def perform_training(sl_stock_name, stock_df, predict_models_list):
+    plotting_colors = {
+        'SVR_rbf': '#FFA646',
+        'linear_regression': '#CC2A1E',
+        'random_forests': '#8F0099',
+        'KNN': '#CCAB43',
+        'DT': '#85CC43'}
 
-    print(df.head())
-    dates, prices, ml_models_outputs, prediction_date, test_price = tm.train_predict_plot(stock_name, df, models_list)
-    origdates = dates
-    if len(dates) > 20:
-        dates = dates[-20:]
-        prices = prices[-20:]
+    dates, stock_prices, prediction_models_outputs, prediction_date, test_price = train_model.train_predict_plot(
+        sl_stock_name, stock_df, predict_models_list)
 
-    all_data = []
-    all_data.append((prices, 'false', 'Data', '#000000'))
-    for model_output in ml_models_outputs:
-        if len(origdates) > 20:
-            all_data.append(
-                (((ml_models_outputs[model_output])[0])[-20:], "true", model_output, all_colors[model_output]))
+    original_dates = dates
+    #
+    # print(dates)
+    # print('\n')
+    # print(stock_prices)
+    # print('\n')
+    # print(prediction_models_outputs)
+    # print('\n')
+    # print(prediction_date)
+    # print('\n')
+    # print(test_price)
+
+    if len(dates) > 40:
+        dates = dates[-40:]
+        sl_stock_prices = stock_prices[-40:]
+
+    all_data_list = []
+    all_data_list.append((sl_stock_prices, 'false', 'Actual price', '#000000'))
+
+    # print(all_data_list)
+
+    # print()
+    ''' {'random_forests': (array([14.91800032, 14.57600002, 14.40400009, ..., 54.,
+                                      53.47440155, 52.50700073]), 48.99099845886231, 0.34788879363153224)}'''
+    # print('\n')prediction_models_outputs
+
+    for model_name in prediction_models_outputs:
+        # print(model_name)
+        # print('\n')
+        if len(original_dates) > 40:
+            all_data_list.append(
+                (((prediction_models_outputs[model_name])[0])[-40:], "true", model_name, plotting_colors[model_name]))
+            # print((prediction_models_outputs[model_name][0]))
+            '''[15.29382304 15.08818794 14.52529572 ... 52.97565052 53.70898119 53.27664601]'''
         else:
-            all_data.append(
-                (((ml_models_outputs[model_output])[0]), "true", model_output, all_colors[model_output]))
+            all_data_list.append(
+                (((prediction_models_outputs[model_name])[0]), "true", model_name, plotting_colors[model_name]))
 
-    all_prediction_data = []
-    all_test_evaluations = []
-    all_prediction_data.append(("Original", test_price))
-    for model_output in ml_models_outputs:
-        all_prediction_data.append((model_output, (ml_models_outputs[model_output])[1]))
-        all_test_evaluations.append((model_output, (ml_models_outputs[model_output])[2]))
+    # print(all_data_list)
+    '''(array([50.265   , 50.35    , 51.39    , 50.54    , 51.09    , 49.545   ,
+       52.75    , 53.36    , 53.57    , 52.83    ], dtype=float32), 'true', 'KNN', '#CCAB43')]
+    '''
 
-    return all_prediction_data, all_prediction_data, prediction_date, dates, all_data, all_data, all_test_evaluations
+    all_stock_prediction_data = []
+    all_stock_test_evaluations = []
 
-all_files = utils.read_all_stock_files('individual_stocks_5yr')
-# The route() function of the Flask class is a decorator,
-# which tells the application which URL should call
-# the associated function.
+    all_stock_prediction_data.append(("Original value", test_price))
+
+    for model_name in prediction_models_outputs:
+        # print(prediction_models_outputs[model_name])
+        # print()
+        # print((prediction_models_outputs[model_name])[1])
+        # print()
+        ''' append calculated predicted opening values to all_stock_prediction_data list '''
+        all_stock_prediction_data.append((model_name, (prediction_models_outputs[model_name])[1]))
+
+        ''' append calculated mean_squared_error values to all_stock_prediction_data list '''
+        all_stock_test_evaluations.append((model_name, (prediction_models_outputs[model_name])[2]))
+    #
+    # print(all_stock_prediction_data)
+    # print()
+    # print(all_stock_test_evaluations)
+    return all_stock_prediction_data, all_stock_prediction_data, prediction_date, dates, all_data_list, all_data_list, all_stock_test_evaluations
+
+
+all_stock_files = utils.read_all_Srilankan_stock_files('sl_stock_files')
+
+'''============================================================================================================'''
+
+
 @app.route('/')
-# ‘/’ URL is bound with hello_world() function.
 def landing_function():
-    # all_files = utils.read_all_stock_files('individual_stocks_5yr')
-    # df = all_files['A']
-    # # df = pd.read_csv('GOOG_30_days.csv')
-    # all_prediction_data, all_prediction_data, prediction_date, dates, all_data, all_data = perform_training('A', df, ['SVR_linear'])
-    stock_files = list(all_files.keys())
+    sl_stock_files = list(all_stock_files.keys())
+    '''['AAL', 'AAPL', 'AAP', 'ABBV', 'ABC', 'ABT', 'ACN', 'ADBE', 'ADI'],...........'''
 
-    return render_template('index.html',show_results="false", stocklen=len(stock_files), stock_files=stock_files, len2=len([]),
-                           all_prediction_data=[],
-                           prediction_date="", dates=[], all_data=[], len=len([]))
+    return render_template('index.html', show_results_output="false", stock_len=len(sl_stock_files),
+                           sl_stock_files=sl_stock_files,
+                           len_2=len([]),
+                           all_prediction_stock_data=[],
+                           prediction_result_date="", dates=[], all_stock_data=[], len=len([]))
+
 
 @app.route('/process', methods=['POST'])
 def process():
+    # get the selected stock file
+    sl_stock_file_name = request.form['stock_file_name']
+    # get the selected prediction models list
+    Prediction_Model_algoritms = request.form.getlist('Prediction_Model')
 
-    stock_file_name = request.form['stockfile']
-    ml_algoritms = request.form.getlist('mlalgos')
+    df = all_stock_files[str(sl_stock_file_name)]
 
-    # all_files = utils.read_all_stock_files('individual_stocks_5yr')
-    df = all_files[str(stock_file_name)]
-    # df = pd.read_csv('GOOG_30_days.csv')
-    all_prediction_data, all_prediction_data, prediction_date, dates, all_data, all_data, all_test_evaluations = perform_training(str(stock_file_name), df, ml_algoritms)
-    stock_files = list(all_files.keys())
+    all_prediction_data, all_prediction_data, prediction_date, dates, all_data, all_data, all_test_evaluations = perform_training(
+        str(sl_stock_file_name), df, Prediction_Model_algoritms)
 
-    return render_template('index.html',all_test_evaluations=all_test_evaluations, show_results="true", stocklen=len(stock_files), stock_files=stock_files,
-                           len2=len(all_prediction_data),
-                           all_prediction_data=all_prediction_data,
-                           prediction_date=prediction_date, dates=dates, all_data=all_data, len=len(all_data))
+    stock_files = list(all_stock_files.keys())
+
+    return render_template('index.html', all_test_evaluations=all_test_evaluations, show_results_output="true",
+                           stock_len=len(stock_files), sl_stock_files=stock_files,
+                           len_2=len(all_prediction_data),
+                           all_prediction_stock_data=all_prediction_data,
+                           prediction_result_date=prediction_date, dates=dates, all_stock_data=all_data,
+                           len=len(all_data))
+
 
 # main driver function
 if __name__ == '__main__':

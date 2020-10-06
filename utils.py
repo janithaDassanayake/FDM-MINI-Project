@@ -3,248 +3,258 @@ from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn import tree
-from sklearn import linear_model
-from sklearn.neural_network import MLPRegressor
-from sklearn.metrics import mean_squared_error
-from keras.models import Sequential
 from sklearn.model_selection import train_test_split
-from keras.layers import Dense
-from keras.layers import LSTM
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
 import numpy
 import pandas as pd
 import math
-from sklearn.linear_model import ElasticNet
+from sklearn.metrics import confusion_matrix, accuracy_score
 import os
 
 # setting a seed for reproducibility
 numpy.random.seed(10)
-# read all stock files in directory indivisual_stocks_5yr
-def read_all_stock_files(folder_path):
-    allFiles = []
+
+'''
+=============================================================================================
+                read all stock files in directory called sl_stocks
+'''
+
+
+def read_all_Srilankan_stock_files(folder_path):
+    all_csv_Files = []
     for (_, _, files) in os.walk(folder_path):
-        allFiles.extend(files)
+        all_csv_Files.extend(files)
         break
 
-    dataframe_dict = {}
-    for stock_file in allFiles:
-        df = pd.read_csv(folder_path + "/" +stock_file)
-        dataframe_dict[(stock_file.split('_'))[0]] = df
+    dataframe_Stock_dict = {}
+    for sl_stock_file in all_csv_Files:
+        sl_stock_df = pd.read_csv(folder_path + "/" + sl_stock_file)
+        dataframe_Stock_dict[(sl_stock_file.split('_'))[0]] = sl_stock_df
 
-    return dataframe_dict
-# convert an array of values into a dataset matrix
-def create_dataset(dataset, look_back=1):
-    dataX, dataY = [], []
-    for i in range(len(dataset) - look_back):
-        a = dataset[i:(i + look_back), 0]
-        dataX.append(a)
-        dataY.append(dataset[i + look_back, 0])
-    return numpy.array(dataX), numpy.array(dataY)
-# create dataset from the dataframe
-def create_preprocessed_Dataset(df):
-    df.drop(df.columns.difference(['date', 'open']), 1, inplace=True)
-    df = df['open']
-    dataset = df.values
-    dataset = dataset.reshape(-1, 1)
-    dataset = dataset.astype('float32')
+    return dataframe_Stock_dict
 
-    # split into train and test sets
-    train_size = len(dataset) - 2
-    train, test = dataset[0:train_size, :], dataset[train_size:len(dataset), :]
+
+'''
+=============================================================================================
+         convert an array of values into a dataset matrix (create_stock_dataset)
+'''
+
+
+def create_stock_dataset(sl_dataset, val=1):
+    stock_dataX, stock_dataY = [], []
+    for i in range(len(sl_dataset) - val):
+        x = sl_dataset[i:(i + val), 0]
+        stock_dataX.append(x)
+        stock_dataY.append(sl_dataset[i + val, 0])
+    # print(stock_dataX)
+    # print('-------------------------')
+    # print(stock_dataY)
+    return numpy.array(stock_dataX), numpy.array(stock_dataY)
+
+
+'''
+=============================================================================================
+         create a proper stock dataset from the dataframe
+'''
+
+
+def create_sl_stock_preprocessed_Dataset(stock_df):
+    stock_df.drop(stock_df.columns.difference(['date', 'open']), 1, inplace=True)
+    stock_df = stock_df['open']
+    stock_dataset = stock_df.values
+    stock_dataset = stock_dataset.reshape(-1, 1)
+    stock_dataset = stock_dataset.astype('float32')
+
+    # split data set into into training set and testing sets
+    sl_train_size = len(stock_dataset) - 2
+    sl_train, sl_test = stock_dataset[0:sl_train_size, :], stock_dataset[sl_train_size:len(stock_dataset), :]
+    # print('------------print sl train------------------------')
+    # print(sl_train.shape)
+    # print('---------------print sl test---------------------')
+    # print(sl_test.shape)
 
     # reshape into X=t and Y=t+1
-    look_back = 1
-    trainX, trainY = create_dataset(train, look_back)
-    testX, testY = create_dataset(test, look_back)
+    val = 1
+    sl_trainX, sl_trainY = create_stock_dataset(sl_train, val)
+    sl_testX, sl_testY = create_stock_dataset(sl_test, val)
+    # print('-----------------------------')
+    # print()
+    # print('----------------sl_trainX--------------------')
+    # print(sl_trainX.shape)
+    # print('----------------sl_trainY------------------')
+    # print(sl_trainY.shape)
+    # print('----------------sl_testX--------------------')
+    # print(sl_testX.shape)
+    # print('----------------sl_testY--------------------')
+    # print(sl_testY.shape)
 
-    # reshape input to be [samples, time steps, features]
-    # trainX = numpy.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
-    # testX = numpy.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
+    return sl_trainX, sl_trainY, sl_testX, sl_testY
 
-    return trainX, trainY, testX, testY
-# extract input dates and opening price value of stocks
-def getData(df):
+
+'''
+=============================================================================================
+          extract input dates and opening price value of stocks
+'''
+
+
+def get_sl_stock_Data(stock_df):
     # Create the lists / X and Y data sets
     dates = []
-    prices = []
+    sl_prices = []
 
-    # Get the number of rows and columns in the data set
-    # df.shape
+    '''Get the last row of data (this will be the data that we test on)'''
+    last_data_row = stock_df.tail(1)
 
-    # Get the last row of data (this will be the data that we test on)
-    last_row = df.tail(1)
+    '''Get all of the data except for the last row'''
+    stock_df = stock_df.head(len(stock_df) - 1)
 
-    # Get all of the data except for the last row
-    df = df.head(len(df) - 1)
-    # df
+    '''Get all of the rows from the Date Column'''
+    df_dates = stock_df.loc[:, 'date']
 
-    # The new shape of the data
-    # df.shape
+    '''Get all of the rows from the Open Column'''
+    df_open = stock_df.loc[:, 'open']
 
-    # Get all of the rows from the Date Column
-    df_dates = df.loc[:, 'date']
-    # Get all of the rows from the Open Column
-    df_open = df.loc[:, 'open']
+    '''Create the independent data set X'''
+    for sl_date in df_dates:
+        dates.append([int(sl_date.split('-')[2])])
 
-    # Create the independent data set X
-    for date in df_dates:
-        dates.append([int(date.split('-')[2])])
-
-    # Create the dependent data se 'y'
+    '''Create the dependent data set 'y'''
     for open_price in df_open:
-        prices.append(float(open_price))
+        sl_prices.append(float(open_price))
 
-    # See what days were recorded
-    last_date = int(((list(last_row['date']))[0]).split('-')[2])
-    last_price = float((list(last_row['open']))[0])
-    return dates, prices, last_date, last_price
+    '''last row'''
+    l_date = int(((list(last_data_row['date']))[0]).split('-')[2])
+    l_price = float((list(last_data_row['open']))[0])
+
+    return dates, sl_prices, l_date, l_price
 
 
-def SVR_linear(dates, prices, test_date, df):
-    svr_lin = SVR(kernel='linear', C=1e3)
-    trainX, trainY, testX, testY = create_preprocessed_Dataset(df)
-    X_train, X_test, y_train, y_test = train_test_split(trainX, trainY, test_size = 0.33, random_state = 42)
-    svr_lin.fit(X_train, y_train)
-    decision_boundary = svr_lin.predict(trainX)
-    y_pred = svr_lin.predict(X_test)
-    test_score = mean_squared_error(y_test, y_pred)
-    prediction = svr_lin.predict(testX)[0]
+'''
+=============================================================================================
+                                 linear regression
+'''
 
-    return (decision_boundary, prediction, test_score)
+
+def linear_regression(dates, sl_prices, sl_test_date, sl_df):
+    linear_reg = LinearRegression()
+    sl_trainX, sl_trainY, sl_testX, sl_testY = create_sl_stock_preprocessed_Dataset(sl_df)
+
+    X_train, X_test, y_train, y_test = train_test_split(sl_trainX, sl_trainY, test_size=0.33, random_state=42)
+
+    linear_reg.fit(sl_trainX, sl_trainY)
+
+    predict_decision_boundary = linear_reg.predict(sl_trainX)
+
+    linear_reg_y_pred = linear_reg.predict(X_test)
+
+    mean_squared_error_test_score = mean_squared_error(y_test, linear_reg_y_pred)
+
+    prediction_of_linear_reg = linear_reg.predict(sl_testX)[0]
+
+    return predict_decision_boundary, prediction_of_linear_reg, mean_squared_error_test_score
+
+
+'''
+=============================================================================================
+                                         SVM 
+'''
+
 
 def SVR_rbf(dates, prices, test_date, df):
-    svr_rbf = SVR(kernel='rbf', C=1e3, gamma=0.1)
-    trainX, trainY, testX, testY = create_preprocessed_Dataset(df)
-    # trainX = [item for sublist in trainX for item in sublist]
-    # testX = [item for sublist in testX for item in sublist]
-    X_train, X_test, y_train, y_test = train_test_split(trainX, trainY, test_size=0.33, random_state=42)
-    svr_rbf.fit(trainX, trainY)
-    decision_boundary = svr_rbf.predict(trainX)
-    y_pred = svr_rbf.predict(X_test)
-    test_score = mean_squared_error(y_test, y_pred)
-    prediction = svr_rbf.predict(testX)[0]
-    return (decision_boundary, prediction, test_score)
+    svm = SVR(kernel='rbf', C=1e3, gamma=0.1)
 
-def linear_regression(dates, prices, test_date, df):
-    lin_reg = LinearRegression()
-    trainX, trainY, testX, testY = create_preprocessed_Dataset(df)
-    # trainX = [item for sublist in trainX for item in sublist]
-    # testX = [item for sublist in testX for item in sublist]
-    X_train, X_test, y_train, y_test = train_test_split(trainX, trainY, test_size=0.33, random_state=42)
-    lin_reg.fit(trainX, trainY)
-    decision_boundary = lin_reg.predict(trainX)
-    y_pred = lin_reg.predict(X_test)
-    test_score = mean_squared_error(y_test, y_pred)
-    prediction = lin_reg.predict(testX)[0]
-    return (decision_boundary, prediction, test_score)
+    sl_trainX, sl_trainY, sl_testX, sl_testY = create_sl_stock_preprocessed_Dataset(df)
 
-def random_forests(dates, prices, test_date, df):
-    rand_forst = RandomForestRegressor(n_estimators=10, random_state=0)
-    trainX, trainY, testX, testY = create_preprocessed_Dataset(df)
-    # trainX = [item for sublist in trainX for item in sublist]
-    # testX = [item for sublist in testX for item in sublist]
-    X_train, X_test, y_train, y_test = train_test_split(trainX, trainY, test_size=0.33, random_state=42)
-    rand_forst.fit(trainX, trainY)
-    decision_boundary = rand_forst.predict(trainX)
-    y_pred = rand_forst.predict(X_test)
-    test_score = mean_squared_error(y_test, y_pred)
-    prediction = rand_forst.predict(testX)[0]
+    X_train, X_test, y_train, y_test = train_test_split(sl_trainX, sl_trainY, test_size=0.33, random_state=42)
 
-    return (decision_boundary, prediction, test_score)
+    svm.fit(sl_trainX, sl_trainY)
 
-def KNN(dates, prices, test_date, df):
+    svm_decision_boundary = svm.predict(sl_trainX)
+
+    svm_y_pred = svm.predict(X_test)
+
+    svm_test_score = mean_squared_error(y_test, svm_y_pred)
+
+    svm_prediction = svm.predict(sl_testX)[0]
+
+    return svm_decision_boundary, svm_prediction, svm_test_score
+
+
+'''
+=============================================================================================
+                                    random forests
+'''
+
+
+def random_forests(dates, sl_prices, sl_test_date, sl_df):
+    randomForest = RandomForestRegressor(n_estimators=10, random_state=0)
+
+    sl_trainX, sl_trainY, sl_testX, sl_testY = create_sl_stock_preprocessed_Dataset(sl_df)
+
+    X_train, X_test, y_train, y_test = train_test_split(sl_trainX, sl_trainY, test_size=0.33, random_state=42)
+
+    randomForest.fit(sl_trainX, sl_trainY)
+
+    predict_decision_boundary = randomForest.predict(sl_trainX)
+
+    randomForest_y_pred = randomForest.predict(X_test)
+
+    mean_squared_error_test_score = mean_squared_error(y_test, randomForest_y_pred)
+
+    prediction_of_randomForest = randomForest.predict(sl_testX)[0]
+
+    return predict_decision_boundary, prediction_of_randomForest, mean_squared_error_test_score
+
+
+'''
+=============================================================================================
+                                        KNN 
+'''
+
+
+def KNN(dates, sl_prices, sl_test_date, sl_df):
     knn = KNeighborsRegressor(n_neighbors=2)
-    trainX, trainY, testX, testY = create_preprocessed_Dataset(df)
-    # trainX = [item for sublist in trainX for item in sublist]
-    # testX = [item for sublist in testX for item in sublist]
-    X_train, X_test, y_train, y_test = train_test_split(trainX, trainY, test_size=0.33, random_state=42)
-    knn.fit(trainX, trainY)
-    decision_boundary = knn.predict(trainX)
-    y_pred = knn.predict(X_test)
-    test_score = mean_squared_error(y_test, y_pred)
-    prediction = knn.predict(testX)[0]
 
-    return (decision_boundary, prediction, test_score)
+    sl_trainX, sl_trainY, sl_testX, sl_testY = create_sl_stock_preprocessed_Dataset(sl_df)
 
-def DT(dates, prices, test_date, df):
+    X_train, X_test, y_train, y_test = train_test_split(sl_trainX, sl_trainY, test_size=0.33, random_state=42)
+
+    knn.fit(sl_trainX, sl_trainY)
+
+    knn_decision_boundary = knn.predict(sl_trainX)
+
+    knn_y_pred = knn.predict(X_test)
+
+    knn_test_score = mean_squared_error(y_test, knn_y_pred)
+
+    knn_prediction = knn.predict(sl_testX)[0]
+
+    # knn_accuracy_score = accuracy_score(y_test, knn_y_pred)
+
+    return knn_decision_boundary, knn_prediction, knn_test_score
+
+
+'''
+=============================================================================================
+                                        decision trees 
+'''
+
+
+def DT(dates, sl_prices, sl_test_date, sl_df):
     decision_trees = tree.DecisionTreeRegressor()
-    trainX, trainY, testX, testY = create_preprocessed_Dataset(df)
-    # trainX = [item for sublist in trainX for item in sublist]
-    # testX = [item for sublist in testX for item in sublist]
-    X_train, X_test, y_train, y_test = train_test_split(trainX, trainY, test_size=0.33, random_state=42)
-    decision_trees.fit(trainX, trainY)
-    decision_boundary = decision_trees.predict(trainX)
-    y_pred = decision_trees.predict(X_test)
-    test_score = mean_squared_error(y_test, y_pred)
-    prediction = decision_trees.predict(testX)[0]
-    return (decision_boundary, prediction, test_score)
 
-def elastic_net(dates, prices, test_date, df):
-    regr = ElasticNet(random_state=0)
-    trainX, trainY, testX, testY = create_preprocessed_Dataset(df)
-    # trainX = [item for sublist in trainX for item in sublist]
-    # testX = [item for sublist in testX for item in sublist]
-    X_train, X_test, y_train, y_test = train_test_split(trainX, trainY, test_size=0.33, random_state=42)
-    regr.fit(trainX, trainY)
-    decision_boundary = regr.predict(trainX)
-    y_pred = regr.predict(X_test)
-    test_score = mean_squared_error(y_test, y_pred)
-    prediction = regr.predict(testX)[0]
+    sl_trainX, sl_trainY, sl_testX, sl_testY = create_sl_stock_preprocessed_Dataset(sl_df)
 
-    return (decision_boundary, prediction, test_score)
+    X_train, X_test, y_train, y_test = train_test_split(sl_trainX, sl_trainY, test_size=0.33, random_state=42)
 
-def LSTM_model(dates, prices, test_date, df):
-    df.drop(df.columns.difference(['date', 'open']), 1, inplace=True)
-    df = df['open']
-    dataset = df.values
-    dataset = dataset.reshape(-1, 1)
-    dataset = dataset.astype('float32')
+    decision_trees.fit(sl_trainX, sl_trainY)
 
-    # normalize the dataset
-    scaler = MinMaxScaler(feature_range=(0, 1))
-    dataset = scaler.fit_transform(dataset)
+    decision_boundary = decision_trees.predict(sl_trainX)
 
-    # split into train and test sets
-    train_size = len(dataset) - 2
-    train, test = dataset[0:train_size, :], dataset[train_size:len(dataset), :]
+    decision_trees_y_pred = decision_trees.predict(X_test)
 
-    # reshape into X=t and Y=t+1
-    look_back = 1
-    trainX, trainY = create_dataset(train, look_back)
-    testX, testY = create_dataset(test, look_back)
-    X_train, X_test, y_train, y_test = train_test_split(trainX, trainY, test_size=0.33, random_state=42)
-    # reshape input to be [samples, time steps, features]
-    X_train = numpy.reshape(X_train, (X_train.shape[0], 1, X_train.shape[1]))
-    X_test = numpy.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
-    testX = numpy.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
+    decision_trees_test_score = mean_squared_error(y_test, decision_trees_y_pred)
 
-    # create and fit the LSTM network
-    model = Sequential()
-    model.add(LSTM(4, input_shape=(1, look_back)))
-    model.add(Dense(1))
-    model.compile(loss='mean_squared_error', optimizer='adam')
-    model.fit(X_train, y_train, epochs=100, batch_size=1, verbose=2)
+    decision_trees_prediction = decision_trees.predict(sl_testX)[0]
 
-    # make predictions
-    trainPredict = model.predict(X_train)
-    mainTestPredict = model.predict(X_test)
-    testPredict = model.predict(testX)
-
-    # invert predictions
-    trainPredict = scaler.inverse_transform(trainPredict)
-    y_train = scaler.inverse_transform([y_train])
-
-    testPredict = scaler.inverse_transform(testPredict)
-    testY = scaler.inverse_transform([testY])
-
-    mainTestPredict = scaler.inverse_transform(mainTestPredict)
-    mainTestPredict = [item for sublist in mainTestPredict for item in sublist]
-    y_test = scaler.inverse_transform([y_test])
-    test_score = mean_squared_error(y_test[0], mainTestPredict)
-    # calculate root mean squared error
-    trainPredict = [item for sublist in trainPredict for item in sublist]
-
-    # print(trainPredict, testPredict[0])
-
-    return (trainPredict, (testPredict[0])[0], test_score)
+    return decision_boundary, decision_trees_prediction, decision_trees_test_score

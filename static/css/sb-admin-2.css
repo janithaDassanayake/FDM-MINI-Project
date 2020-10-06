@@ -64,9 +64,9 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #858796;
+  color: #332e2e;
   text-align: left;
-  background-color: #fff;
+  background-color: #332e2e;
 }
 
 [tabindex="-1"]:focus {
