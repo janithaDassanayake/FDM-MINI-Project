@@ -19,83 +19,28 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9539512-0f59-459b-ab07-53ac629d0967" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="6c961a63-80e6-4369-ac99-02faf5e0f2a6" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectId" id="1iMJ1FMbF4favMmUhClNoZDjc78" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="TEXT&#10;Properties" />
-    <property name="ignore_missing_gitignore" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="a9539512-0f59-459b-ab07-53ac629d0967" name="Default Changelist" comment="" />
-      <created>1601711326756</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1601711326756</updated>
-    </task>
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="413" y="143" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1602049836806">
+    <state x="410" y="60" key="FileChooserDialogImpl" timestamp="1602057832181">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="143" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1602049836806" />
-    <state x="1942" y="86" key="FileChooserDialogImpl" timestamp="1601889730210">
-      <screen x="1366" y="0" width="1920" height="1040" />
-    </state>
-    <state x="1942" y="86" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1601889730210" />
-    <state x="410" y="60" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1601711576416" />
-    <state x="2166" y="413" key="VCS.ChangelistChooser" timestamp="1601881776072">
-      <screen x="1366" y="0" width="1920" height="1040" />
-    </state>
-    <state x="2166" y="413" key="VCS.ChangelistChooser/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1601881776072" />
-    <state x="462" y="259" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1601968267817">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="462" y="259" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1601968267817" />
-    <state x="1905" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1601888840081">
-      <screen x="1366" y="0" width="1920" height="1040" />
-    </state>
-    <state x="1905" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1601888840081" />
+    <state x="410" y="60" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1602057832181" />
   </component>
 </project>

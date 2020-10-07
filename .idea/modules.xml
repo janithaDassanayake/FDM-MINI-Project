@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Stock-Prices-Prediction-ML.iml" filepath="$PROJECT_DIR$/.idea/Stock-Prices-Prediction-ML.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/FDM-MINI-Stock-Prices-Prediction.iml" filepath="$PROJECT_DIR$/.idea/FDM-MINI-Stock-Prices-Prediction.iml" />
     </modules>
   </component>
 </project>
