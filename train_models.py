@@ -24,7 +24,7 @@ def create_plot(dates, sl_original_prices, prediction_models_outputs):
 def train_predict_plot(file_name, stock_df, prediction_ml_models_list):
     prediction_models_outputs = {}
 
-    dates, prices, test_date, test_stock_price = utils.get_sl_stock_Data(stock_df)
+    dates, prices, test_date, test_stock_price, close_prices, l_close_price = utils.get_sl_stock_Data(stock_df)
 
     for prediction_model in prediction_ml_models_list:
         method_to_call = getattr(utils, prediction_model)
@@ -37,4 +37,4 @@ def train_predict_plot(file_name, stock_df, prediction_ml_models_list):
 
     dates = dates[:-3]
 
-    return dates, prices, prediction_models_outputs, predict_stock_date, test_stock_price
+    return dates, prices, prediction_models_outputs, predict_stock_date, test_stock_price,close_prices,l_close_price

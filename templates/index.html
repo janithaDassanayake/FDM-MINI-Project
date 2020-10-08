@@ -74,16 +74,11 @@
                 ML Prediction Model
             </div>
             <select class="selectpicker" multiple data-live-search="true" name="Prediction_Model">
-<!--                <option value="SVR_linear">SVR (Linear)</option>-->
-
                 <option value="linear_regression">Linear Regression</option>
                 <option value="SVR_rbf">SVM (RBF)</option>
                 <option value="random_forests">Random Forests</option>
                 <option value="KNN">K Nearest Neighbors (KNN)</option>
                 <option value="DT">Decision Trees</option>
-<!--                <option value="elastic_net">Elastic Net</option>-->
-<!--                <option value="LSTM_model">LSTM model</option>-->
-
             </select>
             <br><br>
             <input type="submit" value="Submit" class="btn btn-success" style="color:white;">
@@ -109,7 +104,6 @@
 
             </nav>
             <!-- End of Topbar -->
-
             <!-- Begin Page Content -->
             {% if show_results_output == "false" %}
             <p style="text-align:center;margin-top:15%">
@@ -168,8 +162,8 @@
                                             <tbody>
                                             {% for i in range(0, len_2) %}
                                             <tr>
-                                                <td>{{ all_prediction_stock_data[i][0] }}</td>
-                                                <td>{{ all_prediction_stock_data[i][1] }}</td>
+                                                <td> {{ all_prediction_stock_data[i][0] }}</td>
+                                                <td>LKR : {{ all_prediction_stock_data[i][1] }}</td>
                                             </tr>
                                             {% endfor %}
                                             </tbody>
@@ -177,9 +171,95 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
+                          <!-- Begin Page Content -->
+                        <div class="container-fluid">
+
+                            <!-- Page Heading -->
+                            <h1 class="h3 mb-2 text-gray-800">Prediction Results of SL Stock close Price</h1>
+                            <p class="mb-4">The following table shows the original close value of stock along with its
+                                predicted close value on <br>Date: {{ prediction_result_date }}.</p>
+
+                            <!-- DataTales Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3" style="background:#000000">
+                                    <h6 class="m-0 font-weight-bold text-primary">Predictions</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable3" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr>
+                                                <th>Model</th>
+                                                <th>close Value</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for i in range(0, len_2) %}
+                                            <tr>
+                                                <td> {{ all_close_price[i][0] }}</td>
+                                                <td>LKR : {{ all_close_price[i][1] }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                            <!-- Begin Page Content -->
+                        <div class="container-fluid">
+
+                            <!-- Page Heading -->
+                            <h1 class="h3 mb-2 text-gray-800">Prediction Results of Stock Opening Price for Tomorrow</h1>
+                            <!-- DataTales Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3" style="background:#3f0000">
+                                    <h6 style="text-align:center" class="m-0 font-weight-bold text-primary"> stock opening price range Tomorrow</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable4" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr>
+
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>LKR : {{min_price}}</td>
+                                                <td>LKR : {{max_price}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+<!--                          <div class="card shadow mb-4">-->
+<!--                                <div class="card-header py-3" style="background:#000000">-->
+<!--                                    <h6 class="m-0 font-weight-bold text-primary">Next day Opening price Will be</h6>-->
+<!--                                </div>-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="table-responsive">-->
+<!--                                        <table class="table table-bordered" id="dataTable4" width="100%" cellspacing="0">-->
+<!--                                            <thead>-->
+<!--                                            <tr>-->
+<!--                                                <th>close Value</th>-->
+<!--                                            </tr>-->
+<!--                                            </thead>-->
+<!--                                            <tbody>-->
+<!--                                            <tr>-->
+<!--                                                <td>{{ closeAVG}}</td>-->
+<!--                                            </tr>-->
+<!--                                            </tbody>-->
+<!--                                        </table>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                           <div class="container-fluid">
 
                             <!-- Page Heading -->
@@ -387,6 +467,11 @@ var myLineChart = new Chart(ctx, {
   }
 });
 $('select').selectpicker();
+
+
+
+<!--====================================================================================================-->
+
 
 
 

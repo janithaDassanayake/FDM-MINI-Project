@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, send_from_directory
 import utils
 import train_models as train_model
+import math
 
 app = Flask(__name__)
 
@@ -13,7 +14,7 @@ def perform_training(sl_stock_name, stock_df, predict_models_list):
         'KNN': '#CCAB43',
         'DT': '#85CC43'}
 
-    dates, stock_prices, prediction_models_outputs, prediction_date, test_price = train_model.train_predict_plot(
+    dates, stock_prices, prediction_models_outputs, prediction_date, test_price, close_prices, l_close_price = train_model.train_predict_plot(
         sl_stock_name, stock_df, predict_models_list)
 
     original_dates = dates
@@ -61,8 +62,11 @@ def perform_training(sl_stock_name, stock_df, predict_models_list):
 
     all_stock_prediction_data = []
     all_stock_test_evaluations = []
+    all_stock_close_price_prediction = []
+    list_of_close_prices = []
 
     all_stock_prediction_data.append(("Original value", test_price))
+    all_stock_close_price_prediction.append(("Original close value", l_close_price))
 
     for model_name in prediction_models_outputs:
         # print(prediction_models_outputs[model_name])
@@ -74,11 +78,22 @@ def perform_training(sl_stock_name, stock_df, predict_models_list):
 
         ''' append calculated mean_squared_error values to all_stock_prediction_data list '''
         all_stock_test_evaluations.append((model_name, (prediction_models_outputs[model_name])[2]))
-    #
-    # print(all_stock_prediction_data)
-    # print()
-    # print(all_stock_test_evaluations)
-    return all_stock_prediction_data, all_stock_prediction_data, prediction_date, dates, all_data_list, all_data_list, all_stock_test_evaluations
+
+        ''' append calculated close price values to all_stock_prediction_data list '''
+        all_stock_close_price_prediction.append((model_name, (prediction_models_outputs[model_name])[3]))
+
+        list_of_close_prices.append(prediction_models_outputs[model_name][3])
+
+
+
+    list_of_close_prices.append(l_close_price)
+    #print(list_of_close_prices)
+    maxprice= max(list_of_close_prices)
+    minprice= min(list_of_close_prices)
+
+    minprice=math.floor(minprice)
+    maxprice=math.ceil(maxprice)
+    return all_stock_prediction_data, all_stock_prediction_data, prediction_date, dates, all_data_list, all_data_list, all_stock_test_evaluations, all_stock_close_price_prediction,maxprice,minprice
 
 
 all_stock_files = utils.read_all_Srilankan_stock_files('sl_stock_files')
@@ -95,7 +110,8 @@ def landing_function():
                            sl_stock_files=sl_stock_files,
                            len_2=len([]),
                            all_prediction_stock_data=[],
-                           prediction_result_date="", dates=[], all_stock_data=[], len=len([]))
+                           prediction_result_date="", dates=[], maxprice="",minprice="",all_stock_data=[], all_close_price=[],
+                           len=len([]))
 
 
 @app.route('/process', methods=['POST'])
@@ -107,7 +123,7 @@ def process():
 
     df = all_stock_files[str(sl_stock_file_name)]
 
-    all_prediction_data, all_prediction_data, prediction_date, dates, all_data, all_data, all_test_evaluations = perform_training(
+    all_prediction_data, all_prediction_data, prediction_date, dates, all_data, all_data, all_test_evaluations, all_stock_close_price_prediction1,maxprice,minprice = perform_training(
         str(sl_stock_file_name), df, Prediction_Model_algoritms)
 
     stock_files = list(all_stock_files.keys())
@@ -117,6 +133,7 @@ def process():
                            len_2=len(all_prediction_data),
                            all_prediction_stock_data=all_prediction_data,
                            prediction_result_date=prediction_date, dates=dates, all_stock_data=all_data,
+                           all_close_price=all_stock_close_price_prediction1,min_price=minprice,max_price=maxprice,
                            len=len(all_data))
 
 
