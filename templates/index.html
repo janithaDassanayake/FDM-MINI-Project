@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <title>SL Stock opening Price Prediction</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='sri-lanka-flag-waving-icon-256.png') }}">
     <!-- Custom fonts for this template-->
@@ -23,25 +24,33 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
+
     <!-- Custom styles for this template-->
     <link href="{{ url_for('static',filename='css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+
 </head>
 
-<body id="page-top" style="background:#191919">
+<body id="page-top" style="background:#334d50">
+
+<div id="popUpMain">
+    <div id="popup">
+
+    </div>
+</div>
 
 <!-- Page Wrapper -->
-<div id="wrapper" style="background:#191919">
+<div id="wrapper" style="background:#cbcaa5">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" style="background:#000000" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" style="background:#0f3443" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
             <div class="sidebar-brand-icon rotate-n-15">
                 <img style="width:70px;height:50px" src="{{ url_for('static', filename='sri-lanka-flag-waving-icon-256.png')}}" >
             </div>
-            <div class="sidebar-brand-text mx-3">SL STOCK DASHBOARD</div>
+            <div class="sidebar-brand-text mx-3">SL STOCK PREDICTOR</div>
         </a>
 
         <!-- Divider -->
@@ -54,7 +63,7 @@
         <hr class="sidebar-divider">
         <form class="form-group" style="text-align:center;" method="POST" action="/process">
             <!-- Heading -->
-            <div class="sidebar-brand-text mx-3" style="color:white;">
+            <div class="sidebar-brand-text mx-5" style="color:white;">
                 Stock File
             </div>
 
@@ -88,26 +97,26 @@
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column"style="background:#191919">
+    <div id="content-wrapper" class="d-flex flex-column"style="background:#243b55">
         <!-- Main Content -->
-        <div id="content"style="background:#191919">
+        <div id="content"style="background:#007991">
             <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow"style="background:#000000">
+            <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow"style="background:#0f3443">
                 <!-- Sidebar Toggle (Topbar) -->
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
 
                 <!-- Topbar Search -->
-                <h3>Results of Stock Opening Prediction Models</h3>
+                <h4 style="color:white;">STOCK OPENING AND CLOSING PREDICTION MODELS</h4>
 
 
             </nav>
             <!-- End of Topbar -->
             <!-- Begin Page Content -->
             {% if show_results_output == "false" %}
-            <p style="text-align:center;margin-top:15%">
-                    <i class="fas fa-cogs fa-5x" style="color:#1c5d3c;"></i>
+            <p style="text-align:center;margin-top:15%;color:white">
+                    <i class="fas fa-cogs fa-5x" style="color:#304352;"></i>
                     <br/>
                     <br/>
                     Start Analysis
@@ -123,13 +132,13 @@
                         <div class="col-xl-12 col-lg-7">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between"style="background:#000000">
-                                    <h6 class="m-0 font-weight-bold text-primary">Actual Vs Predicted stock opening price</h6>
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between"style="background:#0f3443">
+                                    <h6 style="color:white;">ACTUAL VS PREDICTED STOCK OPENING PRICE</h6>
 
                                 </div>
                                 <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
+                                <div class="card-body" style="color:#00bf8f">
+                                    <div class="chart-area" >
                                         <canvas id="myAreaChart"></canvas>
                                     </div>
                                 </div>
@@ -141,22 +150,22 @@
                         <div class="container-fluid">
 
                             <!-- Page Heading -->
-                            <h1 class="h3 mb-2 text-gray-800">Prediction Results of SL Stock Opening Price</h1>
-                            <p class="mb-4">The following table shows the original opening value of stock along with its
+                            <h4 style="color:white;">PREDICTION RESULTS OF SL STOCK OPENING PRICE</h4>
+                            <p style="color:white;">The following table shows the original opening value of stock along with its
                                 predicted opening value on <br>Date: {{ prediction_result_date }}.</p>
 
                             <!-- DataTales Example -->
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3" style="background:#000000">
-                                    <h6 class="m-0 font-weight-bold text-primary">Predictions</h6>
+                                <div class="card-header py-3" style="background:#0f3443">
+                                    <h6 style="color:white;">PREDICTIONS</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                             <tr>
-                                                <th>Model</th>
-                                                <th>Opening Value</th>
+                                                <th>MODEL</th>
+                                                <th>OPENING VALUE</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -177,22 +186,22 @@
                         <div class="container-fluid">
 
                             <!-- Page Heading -->
-                            <h1 class="h3 mb-2 text-gray-800">Prediction Results of SL Stock close Price</h1>
-                            <p class="mb-4">The following table shows the original close value of stock along with its
+                            <h4 style="color:white;">PREDICTION RESULTS OF SL STOCK CLOSE PRICE</h4>
+                            <p style="color:white;">The following table shows the original close value of stock along with its
                                 predicted close value on <br>Date: {{ prediction_result_date }}.</p>
 
                             <!-- DataTales Example -->
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3" style="background:#000000">
-                                    <h6 class="m-0 font-weight-bold text-primary">Predictions</h6>
+                                <div class="card-header py-3" style="background:#0f3443">
+                                    <h6 style="color:white;">PREDICTIONS</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable3" width="100%" cellspacing="0">
                                             <thead>
                                             <tr>
-                                                <th>Model</th>
-                                                <th>close Value</th>
+                                                <th>MODEL</th>
+                                                <th>CLOSE VALUE</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -213,18 +222,20 @@
                         <div class="container-fluid">
 
                             <!-- Page Heading -->
-                            <h1 class="h3 mb-2 text-gray-800">Prediction Results of Stock Opening Price for Tomorrow</h1>
+                            <h4 style="color:white;">PREDICTION RESULTS OF STOCK OPENING PRICE FOR TOMORROW</h4>
                             <!-- DataTales Example -->
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3" style="background:#3f0000">
-                                    <h6 style="text-align:center" class="m-0 font-weight-bold text-primary"> stock opening price range Tomorrow</h6>
+                                <div class="card-header py-3" style="background:#0f3443">
+                                    <h6 style="text-align:center; color:white;"> STOCK OPENING PRICE RANGE TOMORROW</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                             <table class="table table-bordered" id="dataTable4" width="100%" cellspacing="0">
                                             <thead>
                                             <tr>
-
+                                                <th>MIN PRICE</th>
+                                                <th>MAX PRICE</th>
+                                            </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
@@ -238,46 +249,24 @@
                             </div>
                         </div>
 
-<!--                          <div class="card shadow mb-4">-->
-<!--                                <div class="card-header py-3" style="background:#000000">-->
-<!--                                    <h6 class="m-0 font-weight-bold text-primary">Next day Opening price Will be</h6>-->
-<!--                                </div>-->
-<!--                                <div class="card-body">-->
-<!--                                    <div class="table-responsive">-->
-<!--                                        <table class="table table-bordered" id="dataTable4" width="100%" cellspacing="0">-->
-<!--                                            <thead>-->
-<!--                                            <tr>-->
-<!--                                                <th>close Value</th>-->
-<!--                                            </tr>-->
-<!--                                            </thead>-->
-<!--                                            <tbody>-->
-<!--                                            <tr>-->
-<!--                                                <td>{{ closeAVG}}</td>-->
-<!--                                            </tr>-->
-<!--                                            </tbody>-->
-<!--                                        </table>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
                           <div class="container-fluid">
 
                             <!-- Page Heading -->
-                            <h1 class="h3 mb-2 text-gray-800">Model Evaluation</h1>
-                            <p class="mb-4">The following table shows the Mean Squared Error (MSE) for the different models. The lower the value, the better it is.</p>
+                            <h4 style="color:white;">MODEL EVALUATION</h4>
+                            <p style="color:white;">The following table shows the Mean Squared Error (MSE) for the different models. The lower the value, the better it is.</p>
 
                             <!-- DataTales Example -->
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3"style="background:#000000">
-                                    <h6 class="m-0 font-weight-bold text-primary">Test Evaluation</h6>
+                                <div class="card-header py-3"style="background:#0f3443">
+                                    <h6 style="color:white;">TEST EVALUATION</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
                                             <thead>
                                             <tr>
-                                                <th>Model</th>
-                                                <th>Mean Squared Error (MSE)</th>
+                                                <th>MODEL</th>
+                                                <th>MEAN SQUARED ERROR (MSE)</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -307,7 +296,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer" style="background:#000000" >
+            <footer class="sticky-footer" style="background:#0f3443" >
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy; SLIIT Stock Price Prediction - 2020</span>
