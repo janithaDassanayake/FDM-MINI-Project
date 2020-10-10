@@ -12,7 +12,7 @@
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <title>SL Stock opening Price Prediction</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='sri-lanka-flag-waving-icon-256.png') }}">
-    <!-- Custom fonts for this template-->
+
     <link href="{{ url_for('static',filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet"
           type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -55,11 +55,6 @@
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-
-
-        <!-- Divider -->
         <hr class="sidebar-divider">
         <form class="form-group" style="text-align:center;" method="POST" action="/process">
             <!-- Heading -->
@@ -112,8 +107,6 @@
 
 
             </nav>
-            <!-- End of Topbar -->
-            <!-- Begin Page Content -->
             {% if show_results_output == "false" %}
             <p style="text-align:center;margin-top:15%;color:white">
                     <i class="fas fa-cogs fa-5x" style="color:#304352;"></i>
