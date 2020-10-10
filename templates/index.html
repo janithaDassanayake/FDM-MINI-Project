@@ -77,21 +77,32 @@
             <div class="sidebar-brand-text mx-3" style="color:white;">
                 ML Prediction Model
             </div>
-            <select class="selectpicker" multiple data-live-search="true" name="Prediction_Model">
+            <select class="selectpicker" multiple data-live-search="true" name="Prediction_Model" required>
                 <option value="linear_regression">Linear Regression</option>
                 <option value="SVR_rbf">SVM (RBF)</option>
                 <option value="random_forests">Random Forests</option>
                 <option value="KNN">K Nearest Neighbors (KNN)</option>
                 <option value="DT">Decision Trees</option>
             </select>
+
+              <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-brand-text " style="color:white;">
+                No of Days to Forecast
+            </div>
+            <div class="sidebar-brand-text mx-2" >
+                <input id="H_id" name="H_id" type="number"
+								class="form-control"   min="1" max="15" data-live-search="true" required>
+            </div>
+
+
             <br><br>
             <input type="submit" value="Submit" class="btn btn-success" style="color:white;">
         </form>
 
     </ul>
-    <!-- End of Sidebar -->
 
-    <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column"style="background:#243b55">
         <!-- Main Content -->
         <div id="content"style="background:#007991">
@@ -102,7 +113,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
 
-                <!-- Topbar Search -->
+
                 <h4 style="color:white;">STOCK OPENING AND CLOSING PREDICTION MODELS</h4>
 
 
@@ -249,13 +260,13 @@
                         <div class="container-fluid">
 
                             <!-- Page Heading -->
-                            <h4 style="color:white;">Predicting 7 days into future</h4>
-                            <p style="color:white;">Predicted stock values for the next 7 days at now at your finger tips ! Check below  </p>
+                            <h4 style="color:white;">Predicting {{len3}} days into future</h4>
+                            <p style="color:white;">Predicted stock values for the next {{len3}} days at now at your finger tips ! Check below  </p>
 
                             <!-- DataTales Example -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3" style="background:#0f3443">
-                                    <h6 style="color:white;">Predicting 7 days into future</h6>
+                                    <h6 style="color:white;">Predicting {{len3}} days into future</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -267,7 +278,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {% for i in range(0,7) %}
+                                            {% for i in range(0,len3) %}
                                             <tr>
                                                 <td> {{ forcastingdate[i] }}</td>
                                                 <td>LKR : {{ forcasting[i] }}</td>

@@ -167,7 +167,7 @@ def get_sl_stock_Data(stock_df):
 '''
 
 
-def linear_regression(dates, sl_prices, sl_test_date, sl_df):
+def linear_regression(dates, sl_prices, sl_test_date, sl_df,forcastingDays):
     linear_reg = LinearRegression()
 
     sl_trainX, sl_trainY, sl_testX, sl_testY, sl_trainX_close, sl_trainY_close, sl_testX_close, sl_testY_close = create_sl_stock_preprocessed_Dataset(
@@ -177,7 +177,7 @@ def linear_regression(dates, sl_prices, sl_test_date, sl_df):
     X_train_close, X_test_close, y_train_close, y_test_close = train_test_split(sl_trainX_close, sl_trainY_close,
                                                                                 test_size=0.33, random_state=42)
     df = sl_df[['close']]
-    forecast_out = int(7)  # predicting 30 days into future
+    forecast_out = int(forcastingDays)
     df['Prediction'] = df[['close']].shift(-forecast_out)
 
     X = np.array(df.drop(['Prediction'], 1))
@@ -219,7 +219,7 @@ def linear_regression(dates, sl_prices, sl_test_date, sl_df):
 '''
 
 
-def SVR_rbf(dates, prices, test_date, sl_df):
+def SVR_rbf(dates, prices, test_date, sl_df,forcastingDays):
     svm = SVR(kernel='rbf', C=1e3, gamma=0.1)
 
     sl_trainX, sl_trainY, sl_testX, sl_testY, sl_trainX_close, sl_trainY_close, sl_testX_close, sl_testY_close = create_sl_stock_preprocessed_Dataset(
@@ -230,7 +230,7 @@ def SVR_rbf(dates, prices, test_date, sl_df):
                                                                                 test_size=0.33, random_state=42)
 
     df = sl_df[['close']]
-    forecast_out = int(7)  # predicting 30 days into future
+    forecast_out = int(forcastingDays)  # predicting 30 days into future
     df['Prediction'] = df[['close']].shift(-forecast_out)
 
     X = np.array(df.drop(['Prediction'], 1))
@@ -272,7 +272,7 @@ def SVR_rbf(dates, prices, test_date, sl_df):
 '''
 
 
-def random_forests(dates, sl_prices, sl_test_date, sl_df):
+def random_forests(dates, sl_prices, sl_test_date, sl_df,forcastingDays):
     randomForest = RandomForestRegressor(n_estimators=10, random_state=0)
 
     sl_trainX, sl_trainY, sl_testX, sl_testY, sl_trainX_close, sl_trainY_close, sl_testX_close, sl_testY_close = create_sl_stock_preprocessed_Dataset(
@@ -283,7 +283,7 @@ def random_forests(dates, sl_prices, sl_test_date, sl_df):
                                                                                 test_size=0.33, random_state=42)
 
     df = sl_df[['close']]
-    forecast_out = int(7)  # predicting 30 days into future
+    forecast_out = int(forcastingDays)  # predicting 30 days into future
     df['Prediction'] = df[['close']].shift(-forecast_out)
 
     X = np.array(df.drop(['Prediction'], 1))
@@ -324,7 +324,7 @@ def random_forests(dates, sl_prices, sl_test_date, sl_df):
 '''
 
 
-def KNN(dates, sl_prices, sl_test_date, sl_df):
+def KNN(dates, sl_prices, sl_test_date, sl_df,forcastingDays):
     knn = KNeighborsRegressor(n_neighbors=2)
 
     sl_trainX, sl_trainY, sl_testX, sl_testY, sl_trainX_close, sl_trainY_close, sl_testX_close, sl_testY_close = create_sl_stock_preprocessed_Dataset(
@@ -335,7 +335,7 @@ def KNN(dates, sl_prices, sl_test_date, sl_df):
                                                                                 test_size=0.33, random_state=42)
 
     df = sl_df[['close']]
-    forecast_out = int(7)  # predicting 30 days into future
+    forecast_out = int(forcastingDays)  # predicting 30 days into future
     df['Prediction'] = df[['close']].shift(-forecast_out)
 
     X = np.array(df.drop(['Prediction'], 1))
@@ -378,7 +378,7 @@ def KNN(dates, sl_prices, sl_test_date, sl_df):
 '''
 
 
-def DT(dates, sl_prices, sl_test_date, sl_df):
+def DT(dates, sl_prices, sl_test_date, sl_df,forcastingDays):
     decision_trees = tree.DecisionTreeRegressor()
 
     sl_trainX, sl_trainY, sl_testX, sl_testY, sl_trainX_close, sl_trainY_close, sl_testX_close, sl_testY_close = create_sl_stock_preprocessed_Dataset(
@@ -389,7 +389,7 @@ def DT(dates, sl_prices, sl_test_date, sl_df):
                                                                                 test_size=0.33, random_state=42)
 
     df = sl_df[['close']]
-    forecast_out = int(7)  # predicting 30 days into future
+    forecast_out = int(forcastingDays)  # predicting 30 days into future
     df['Prediction'] = df[['close']].shift(-forecast_out)
 
     X = np.array(df.drop(['Prediction'], 1))
