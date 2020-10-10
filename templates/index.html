@@ -218,6 +218,8 @@
                             </div>
                         </div>
 
+
+
                             <!-- Begin Page Content -->
                         <div class="container-fluid">
 
@@ -248,6 +250,47 @@
                                 </div>
                             </div>
                         </div>
+
+
+                            <!-- Begin Page Content -->
+                        <div class="container-fluid">
+
+                            <!-- Page Heading -->
+                            <h4 style="color:white;">Predicting 7 days into future</h4>
+                            <p style="color:white;">Predicted stock values for the next 7 days at now at your finger tips ! Check below  </p>
+
+                            <!-- DataTales Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3" style="background:#0f3443">
+                                    <h6 style="color:white;">Predicting 7 days into future</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable13" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr>
+                                                <th>date</th>
+                                                <th>price</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for i in range(0,7) %}
+                                            <tr>
+                                                <td> {{ forcastingdate[i] }}</td>
+                                                <td>LKR : {{ forcasting[i] }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
 
                           <div class="container-fluid">
 
@@ -299,7 +342,7 @@
             <footer class="sticky-footer" style="background:#0f3443" >
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; SLIIT Stock Price Prediction - 2020</span>
+                         <marquee><span>Copyright &copy; SLIIT Stock Price Prediction - 2020</span> </marquee>
                     </div>
                 </div>
             </footer>
@@ -326,6 +369,7 @@
 
     <!-- Page level custom scripts -->
     <script>
+
 
 
     // Set new default font family and font color to mimic Bootstrap's default styling

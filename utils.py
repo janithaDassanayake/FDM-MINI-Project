@@ -10,6 +10,14 @@ import pandas as pd
 import math
 from sklearn.metrics import confusion_matrix, accuracy_score
 import os
+import quandl
+import pandas as pd
+import numpy as np
+import datetime
+
+from sklearn.linear_model import LinearRegression
+from sklearn import preprocessing, svm
+from sklearn.model_selection import train_test_split
 
 # setting a seed for reproducibility
 numpy.random.seed(10)
@@ -142,7 +150,7 @@ def get_sl_stock_Data(stock_df):
         sl_prices.append(float(open_price))
 
     '''Create the dependent data set 'y'''
-    for close_price in df_open:
+    for close_price in df_close:
         sl_close.append(float(close_price))
 
     '''last row'''
@@ -168,6 +176,24 @@ def linear_regression(dates, sl_prices, sl_test_date, sl_df):
     X_train, X_test, y_train, y_test = train_test_split(sl_trainX, sl_trainY, test_size=0.33, random_state=42)
     X_train_close, X_test_close, y_train_close, y_test_close = train_test_split(sl_trainX_close, sl_trainY_close,
                                                                                 test_size=0.33, random_state=42)
+    df = sl_df[['close']]
+    forecast_out = int(7)  # predicting 30 days into future
+    df['Prediction'] = df[['close']].shift(-forecast_out)
+
+    X = np.array(df.drop(['Prediction'], 1))
+    X = preprocessing.scale(X)
+
+    X_forecast = X[-forecast_out:]  # set X_forecast equal to last 30
+    X = X[:-forecast_out]  # remove last 30 from X
+
+    y = np.array(df['Prediction'])
+    y = y[:-forecast_out]
+
+    X_train_f, X_test_f, y_train_f, y_test_f = train_test_split(X, y, test_size=0.2)
+    linear_reg.fit(X_train_f, y_train_f)
+    confidence = linear_reg.score(X_test_f, y_test_f)
+
+    forecast_prediction = linear_reg.predict(X_forecast)
 
     linear_reg.fit(sl_trainX, sl_trainY)
     linear_reg.fit(sl_trainX_close, sl_trainY_close)
@@ -184,7 +210,7 @@ def linear_regression(dates, sl_prices, sl_test_date, sl_df):
     prediction_of_linear_reg = linear_reg.predict(sl_testX)[0]
     prediction_of_linear_reg_close = linear_reg.predict(sl_testX_close)[0]
 
-    return predict_decision_boundary, prediction_of_linear_reg, mean_squared_error_test_score, prediction_of_linear_reg_close
+    return predict_decision_boundary, prediction_of_linear_reg, mean_squared_error_test_score, prediction_of_linear_reg_close, forecast_prediction
 
 
 '''
@@ -203,6 +229,25 @@ def SVR_rbf(dates, prices, test_date, sl_df):
     X_train_close, X_test_close, y_train_close, y_test_close = train_test_split(sl_trainX_close, sl_trainY_close,
                                                                                 test_size=0.33, random_state=42)
 
+    df = sl_df[['close']]
+    forecast_out = int(7)  # predicting 30 days into future
+    df['Prediction'] = df[['close']].shift(-forecast_out)
+
+    X = np.array(df.drop(['Prediction'], 1))
+    X = preprocessing.scale(X)
+
+    X_forecast = X[-forecast_out:]  # set X_forecast equal to last 30
+    X = X[:-forecast_out]  # remove last 30 from X
+
+    y = np.array(df['Prediction'])
+    y = y[:-forecast_out]
+
+    X_train_f, X_test_f, y_train_f, y_test_f = train_test_split(X, y, test_size=0.2)
+    svm.fit(X_train_f, y_train_f)
+    confidence = svm.score(X_test_f, y_test_f)
+    forecast_prediction = svm.predict(X_forecast)
+
+
     svm.fit(sl_trainX, sl_trainY)
     svm.fit(sl_trainX_close, sl_trainY_close)
 
@@ -218,7 +263,7 @@ def SVR_rbf(dates, prices, test_date, sl_df):
     svm_prediction = svm.predict(sl_testX)[0]
     prediction_of_svm_close = svm.predict(sl_testX_close)[0]
 
-    return svm_decision_boundary, svm_prediction, svm_test_score, prediction_of_svm_close
+    return svm_decision_boundary, svm_prediction, svm_test_score, prediction_of_svm_close,forecast_prediction
 
 
 '''
@@ -237,9 +282,26 @@ def random_forests(dates, sl_prices, sl_test_date, sl_df):
     X_train_close, X_test_close, y_train_close, y_test_close = train_test_split(sl_trainX_close, sl_trainY_close,
                                                                                 test_size=0.33, random_state=42)
 
+    df = sl_df[['close']]
+    forecast_out = int(7)  # predicting 30 days into future
+    df['Prediction'] = df[['close']].shift(-forecast_out)
+
+    X = np.array(df.drop(['Prediction'], 1))
+    X = preprocessing.scale(X)
+
+    X_forecast = X[-forecast_out:]  # set X_forecast equal to last 30
+    X = X[:-forecast_out]  # remove last 30 from X
+
+    y = np.array(df['Prediction'])
+    y = y[:-forecast_out]
+
+    X_train_f, X_test_f, y_train_f, y_test_f = train_test_split(X, y, test_size=0.2)
+    randomForest.fit(X_train_f, y_train_f)
+    confidence = randomForest.score(X_test_f, y_test_f)
+    forecast_prediction = randomForest.predict(X_forecast)
+
     randomForest.fit(sl_trainX, sl_trainY)
     randomForest.fit(sl_trainX_close, sl_trainY_close)
-
 
     predict_decision_boundary = randomForest.predict(sl_trainX)
     predict_decision_boundary_close = randomForest.predict(sl_trainX_close)
@@ -253,7 +315,7 @@ def random_forests(dates, sl_prices, sl_test_date, sl_df):
     prediction_of_randomForest = randomForest.predict(sl_testX)[0]
     prediction_of_randomForest_close = randomForest.predict(sl_testX_close)[0]
 
-    return predict_decision_boundary, prediction_of_randomForest, mean_squared_error_test_score,prediction_of_randomForest_close
+    return predict_decision_boundary, prediction_of_randomForest, mean_squared_error_test_score, prediction_of_randomForest_close,forecast_prediction
 
 
 '''
@@ -272,6 +334,24 @@ def KNN(dates, sl_prices, sl_test_date, sl_df):
     X_train_close, X_test_close, y_train_close, y_test_close = train_test_split(sl_trainX_close, sl_trainY_close,
                                                                                 test_size=0.33, random_state=42)
 
+    df = sl_df[['close']]
+    forecast_out = int(7)  # predicting 30 days into future
+    df['Prediction'] = df[['close']].shift(-forecast_out)
+
+    X = np.array(df.drop(['Prediction'], 1))
+    X = preprocessing.scale(X)
+
+    X_forecast = X[-forecast_out:]  # set X_forecast equal to last 30
+    X = X[:-forecast_out]  # remove last 30 from X
+
+    y = np.array(df['Prediction'])
+    y = y[:-forecast_out]
+
+    X_train_f, X_test_f, y_train_f, y_test_f = train_test_split(X, y, test_size=0.2)
+    knn.fit(X_train_f, y_train_f)
+    confidence = knn.score(X_test_f, y_test_f)
+    forecast_prediction = knn.predict(X_forecast)
+
     knn.fit(sl_trainX, sl_trainY)
     knn.fit(sl_trainX_close, sl_trainY_close)
 
@@ -289,7 +369,7 @@ def KNN(dates, sl_prices, sl_test_date, sl_df):
 
     # knn_accuracy_score = accuracy_score(y_test, knn_y_pred)
 
-    return knn_decision_boundary, knn_prediction, knn_test_score,prediction_of_knn_close
+    return knn_decision_boundary, knn_prediction, knn_test_score, prediction_of_knn_close,forecast_prediction
 
 
 '''
@@ -308,6 +388,24 @@ def DT(dates, sl_prices, sl_test_date, sl_df):
     X_train_close, X_test_close, y_train_close, y_test_close = train_test_split(sl_trainX_close, sl_trainY_close,
                                                                                 test_size=0.33, random_state=42)
 
+    df = sl_df[['close']]
+    forecast_out = int(7)  # predicting 30 days into future
+    df['Prediction'] = df[['close']].shift(-forecast_out)
+
+    X = np.array(df.drop(['Prediction'], 1))
+    X = preprocessing.scale(X)
+
+    X_forecast = X[-forecast_out:]  # set X_forecast equal to last 30
+    X = X[:-forecast_out]  # remove last 30 from X
+
+    y = np.array(df['Prediction'])
+    y = y[:-forecast_out]
+
+    X_train_f, X_test_f, y_train_f, y_test_f = train_test_split(X, y, test_size=0.2)
+    decision_trees.fit(X_train_f, y_train_f)
+    confidence = decision_trees.score(X_test_f, y_test_f)
+    forecast_prediction = decision_trees.predict(X_forecast)
+
     decision_trees.fit(sl_trainX, sl_trainY)
     decision_trees.fit(sl_trainX_close, sl_trainY_close)
 
@@ -323,4 +421,4 @@ def DT(dates, sl_prices, sl_test_date, sl_df):
     decision_trees_prediction = decision_trees.predict(sl_testX)[0]
     prediction_of_knn_close = decision_trees.predict(sl_testX_close)[0]
 
-    return decision_boundary, decision_trees_prediction, decision_trees_test_score,prediction_of_knn_close
+    return decision_boundary, decision_trees_prediction, decision_trees_test_score, prediction_of_knn_close,forecast_prediction

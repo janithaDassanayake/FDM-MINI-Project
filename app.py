@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, send_from_directory
 import utils
 import train_models as train_model
 import math
+import numpy as np
 
 app = Flask(__name__)
 
@@ -64,6 +65,9 @@ def perform_training(sl_stock_name, stock_df, predict_models_list):
     all_stock_test_evaluations = []
     all_stock_close_price_prediction = []
     list_of_close_prices = []
+    forcast_price_list = []
+    list1 = []
+    forcast_date_List = ['Day-01', 'Day-02', 'Day-03', 'Day-04', 'Day-05', 'Day-06', 'Day-07']
 
     all_stock_prediction_data.append(("Original value", test_price))
     all_stock_close_price_prediction.append(("Original close value", l_close_price))
@@ -84,16 +88,19 @@ def perform_training(sl_stock_name, stock_df, predict_models_list):
 
         list_of_close_prices.append(prediction_models_outputs[model_name][3])
 
+        forcast_price_list = prediction_models_outputs[model_name][4]
 
+        for x in range(0, 7):
+            list1.append(forcast_price_list[x])
+        print(list1)
 
     list_of_close_prices.append(l_close_price)
-    #print(list_of_close_prices)
-    maxprice= max(list_of_close_prices)
-    minprice= min(list_of_close_prices)
+    maxprice = max(list_of_close_prices)
+    minprice = min(list_of_close_prices)
 
-    minprice=math.floor(minprice)
-    maxprice=math.ceil(maxprice)
-    return all_stock_prediction_data, all_stock_prediction_data, prediction_date, dates, all_data_list, all_data_list, all_stock_test_evaluations, all_stock_close_price_prediction,maxprice,minprice
+    minprice = math.floor(minprice)
+    maxprice = math.ceil(maxprice)
+    return all_stock_prediction_data, all_stock_prediction_data, prediction_date, dates, all_data_list, all_data_list, all_stock_test_evaluations, all_stock_close_price_prediction, maxprice, minprice, forcast_date_List, list1
 
 
 all_stock_files = utils.read_all_Srilankan_stock_files('sl_stock_files')
@@ -110,7 +117,8 @@ def landing_function():
                            sl_stock_files=sl_stock_files,
                            len_2=len([]),
                            all_prediction_stock_data=[],
-                           prediction_result_date="", dates=[], maxprice="",minprice="",all_stock_data=[], all_close_price=[],
+                           prediction_result_date="", dates=[], maxprice="", minprice="", all_stock_data=[],
+                           all_close_price=[], forcasting=[], forcastingdate=[],
                            len=len([]))
 
 
@@ -123,7 +131,7 @@ def process():
 
     df = all_stock_files[str(sl_stock_file_name)]
 
-    all_prediction_data, all_prediction_data, prediction_date, dates, all_data, all_data, all_test_evaluations, all_stock_close_price_prediction1,maxprice,minprice = perform_training(
+    all_prediction_data, all_prediction_data, prediction_date, dates, all_data, all_data, all_test_evaluations, all_stock_close_price_prediction1, maxprice, minprice, forcast_date_List, list1 = perform_training(
         str(sl_stock_file_name), df, Prediction_Model_algoritms)
 
     stock_files = list(all_stock_files.keys())
@@ -133,7 +141,8 @@ def process():
                            len_2=len(all_prediction_data),
                            all_prediction_stock_data=all_prediction_data,
                            prediction_result_date=prediction_date, dates=dates, all_stock_data=all_data,
-                           all_close_price=all_stock_close_price_prediction1,min_price=minprice,max_price=maxprice,
+                           all_close_price=all_stock_close_price_prediction1, min_price=minprice, max_price=maxprice,
+                           forcasting=list1, forcastingdate=forcast_date_List,
                            len=len(all_data))
 
 
