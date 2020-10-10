@@ -35,6 +35,6 @@ def train_predict_plot(file_name, stock_df, prediction_ml_models_list,forcasting
     # get the last date
     predict_stock_date = dates[-1]
 
-    dates = dates
+    dates = dates[:-1]
 
     return dates, prices, prediction_models_outputs, predict_stock_date, test_stock_price,close_prices,l_close_price

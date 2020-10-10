@@ -8,7 +8,7 @@ import pandas as pd
 app = Flask(__name__)
 
 
-def perform_training(sl_stock_name, stock_df, predict_models_list,forcastingDays):
+def perform_training(sl_stock_name, stock_df, predict_models_list, forcastingDays):
     plotting_colors = {
         'SVR_rbf': '#FFA646',
         'linear_regression': '#CC2A1E',
@@ -17,7 +17,7 @@ def perform_training(sl_stock_name, stock_df, predict_models_list,forcastingDays
         'DT': '#85CC43'}
 
     dates, stock_prices, prediction_models_outputs, prediction_date, test_price, close_prices, l_close_price = train_model.train_predict_plot(
-        sl_stock_name, stock_df, predict_models_list,forcastingDays)
+        sl_stock_name, stock_df, predict_models_list, forcastingDays)
 
     original_dates = dates
     #
@@ -66,19 +66,14 @@ def perform_training(sl_stock_name, stock_df, predict_models_list,forcastingDays
     all_stock_test_evaluations = []
     all_stock_close_price_prediction = []
     list_of_close_prices = []
-    forcast_price_list = []
     list1 = []
-    forcast_date_List = ['Day-01', 'Day-02', 'Day-03', 'Day-04', 'Day-05', 'Day-06', 'Day-07']
-    forcast_date_List_new=[]
+    forcast_date_List_new = []
 
     all_stock_prediction_data.append(("Original value", test_price))
     all_stock_close_price_prediction.append(("Original close value", l_close_price))
 
     for model_name in prediction_models_outputs:
-        # print(prediction_models_outputs[model_name])
-        # print()
-        # print((prediction_models_outputs[model_name])[1])
-        # print()
+
         ''' append calculated predicted opening values to all_stock_prediction_data list '''
         all_stock_prediction_data.append((model_name, (prediction_models_outputs[model_name])[1]))
 
@@ -92,11 +87,16 @@ def perform_training(sl_stock_name, stock_df, predict_models_list,forcastingDays
 
         forcast_price_list = prediction_models_outputs[model_name][4]
 
-        for x in range(0,int(forcastingDays)):
-            list1.append(forcast_price_list[x])
+        for x in range(0, int(forcastingDays)):
+            roundforcast=forcast_price_list[x]
+            roundforcast=round(roundforcast,4)
+            list1.append(roundforcast)
         print(list1)
 
     list_of_close_prices.append(l_close_price)
+
+    list_of_close_prices.extend(list1)
+    print('this is best ', list_of_close_prices)
 
     maxprice = max(list_of_close_prices)
     minprice = min(list_of_close_prices)
@@ -105,13 +105,11 @@ def perform_training(sl_stock_name, stock_df, predict_models_list,forcastingDays
     maxprice = math.ceil(maxprice)
 
     startdate = prediction_date
-    for x in range(1,int(forcastingDays)+1):
+    for x in range(1, int(forcastingDays) + 1):
         enddate = pd.to_datetime(startdate) + pd.DateOffset(days=x)
         enddate = str(enddate)
         input = enddate.replace(' 00:00:00', '')
         forcast_date_List_new.append(input)
-
-    print(forcast_date_List_new)
 
     return all_stock_prediction_data, all_stock_prediction_data, prediction_date, dates, all_data_list, all_data_list, all_stock_test_evaluations, all_stock_close_price_prediction, maxprice, minprice, forcast_date_List_new, list1
 
@@ -131,7 +129,7 @@ def landing_function():
                            len_2=len([]),
                            all_prediction_stock_data=[],
                            prediction_result_date="", dates=[], maxprice="", minprice="", all_stock_data=[],
-                           all_close_price=[], forcasting=[], forcastingdate=[],len3=len([]),
+                           all_close_price=[], forcasting=[], forcastingdate=[], len3=len([]),
                            len=len([]))
 
 
@@ -147,7 +145,7 @@ def process():
     df = all_stock_files[str(sl_stock_file_name)]
 
     all_prediction_data, all_prediction_data, prediction_date, dates, all_data, all_data, all_test_evaluations, all_stock_close_price_prediction1, maxprice, minprice, forcast_date_List_new, list1 = perform_training(
-        str(sl_stock_file_name), df, Prediction_Model_algoritms,forcastingDays)
+        str(sl_stock_file_name), df, Prediction_Model_algoritms, forcastingDays)
 
     stock_files = list(all_stock_files.keys())
 
@@ -157,7 +155,7 @@ def process():
                            all_prediction_stock_data=all_prediction_data,
                            prediction_result_date=prediction_date, dates=dates, all_stock_data=all_data,
                            all_close_price=all_stock_close_price_prediction1, min_price=minprice, max_price=maxprice,
-                           forcasting=list1, forcastingdate=forcast_date_List_new,len3=len(forcast_date_List_new),
+                           forcasting=list1, forcastingdate=forcast_date_List_new, len3=len(forcast_date_List_new),
                            len=len(all_data))
 
 

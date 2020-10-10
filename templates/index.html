@@ -155,8 +155,7 @@
 
                             <!-- Page Heading -->
                             <h4 style="color:white;">PREDICTION RESULTS OF SL STOCK OPENING PRICE</h4>
-                            <p style="color:white;">The following table shows the original opening value of stock along with its
-                                predicted opening value on <br>Date: {{ prediction_result_date }}.</p>
+                            <p style="color:white;">Compare the predicted opening price value with its original price value on <br>Date: {{ prediction_result_date }}.</p>
 
                             <!-- DataTales Example -->
                             <div class="card shadow mb-4">
@@ -191,8 +190,7 @@
 
                             <!-- Page Heading -->
                             <h4 style="color:white;">PREDICTION RESULTS OF SL STOCK CLOSE PRICE</h4>
-                            <p style="color:white;">The following table shows the original close value of stock along with its
-                                predicted close value on <br>Date: {{ prediction_result_date }}.</p>
+                            <p style="color:white;">Compare the predicted closing price value with its original price value on<br>Date: {{ prediction_result_date }}.</p>
 
                             <!-- DataTales Example -->
                             <div class="card shadow mb-4">
@@ -228,11 +226,13 @@
                         <div class="container-fluid">
 
                             <!-- Page Heading -->
-                            <h4 style="color:white;">PREDICTION RESULTS OF STOCK OPENING PRICE FOR TOMORROW</h4>
+                            <h4 style="color:white;">PREDICTION RESULTS OF MIN AND MAX STOCK OPENING PRICE FOR THE FORECAST</h4>
+                            <p style="color:white;">The following table display the range of stock opening price for the selected days of future forecast.</p>
+
                             <!-- DataTales Example -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3" style="background:#0f3443">
-                                    <h6 style="text-align:center; color:white;"> STOCK OPENING PRICE RANGE TOMORROW</h6>
+                                    <h6 style="text-align:center; color:white;"> STOCK OPENING PRICE RANGE FOR SELECTED DAYS</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -260,21 +260,20 @@
                         <div class="container-fluid">
 
                             <!-- Page Heading -->
-                            <h4 style="color:white;">Predicting {{len3}} days into future</h4>
+                            <h4 style="color:white;">PREDICTING {{len3}} DAYS INTO FUTURE</h4>
                             <p style="color:white;">Predicted stock values for the next {{len3}} days at now at your finger tips ! Check below  </p>
 
-                            <!-- DataTales Example -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3" style="background:#0f3443">
-                                    <h6 style="color:white;">Predicting {{len3}} days into future</h6>
+                                    <h6 style="text-align:center; color:white;">PREDICTING {{len3}} DAYS INTO FUTURE</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable13" width="100%" cellspacing="0">
                                             <thead>
                                             <tr>
-                                                <th>date</th>
-                                                <th>price</th>
+                                                <th>DATE</th>
+                                                <th>PREDICTED PRICE</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -300,7 +299,8 @@
 
                             <!-- Page Heading -->
                             <h4 style="color:white;">MODEL EVALUATION</h4>
-                            <p style="color:white;">The following table shows the Mean Squared Error (MSE) for the different models. The lower the value, the better it is.</p>
+                            <h5 style="color:white;">Here display the Mean Squared Error (MSE) of the selected models for your information.</h5>
+                              <p style="color:white;">Hint : Lower the value the better the prediction!</p>
 
                             <!-- DataTales Example -->
                             <div class="card shadow mb-4">
